@@ -1,0 +1,55 @@
+:root {
+  --color-background: #0f1117;
+  --color-surface: #171a22;
+  --color-surface-hover: #20242e;
+  --color-border: #2a2f3a;
+
+  --color-text-primary: #f4f5f7;
+  --color-text-secondary: #9ca3af;
+
+  --color-accent: #8b5cf6;
+  --color-accent-soft: rgba(139, 92, 246, 0.15);
+
+  --sidebar-width: 240px;
+  --header-height: 72px;
+
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--color-background);
+}
+
+.main-area {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-content {
+  padding: 32px;
+}
+
+.page-content h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+}
+
+.page-content p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}

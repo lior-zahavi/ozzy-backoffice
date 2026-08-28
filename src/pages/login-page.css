@@ -1,0 +1,119 @@
+.login-page {
+    min-height: 100vh;
+    padding: 40px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-background);
+  }
+  
+  .login-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background-color: var(--color-surface);
+  }
+  
+  .login-logo {
+    margin-bottom: 32px;
+    color: var(--color-text-primary);
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+  
+  .login-card h1 {
+    margin: 0 0 8px;
+    color: var(--color-text-primary);
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .login-description {
+    margin: 0 0 32px;
+    color: var(--color-text-secondary);
+    text-align: center;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-field label {
+    color: var(--color-text-primary);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .form-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    outline: none;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+  }
+  
+  .form-field input:focus {
+    border-color: var(--color-accent);
+  }
+  
+  .form-field input::placeholder {
+    color: var(--color-text-secondary);
+  }
+  
+  .login-submit {
+    min-height: 44px;
+    padding: 10px 16px;
+    border: 0;
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    background-color: var(--color-accent);
+    cursor: pointer;
+  }
+  
+  .login-link {
+    width: 100%;
+    margin-top: 20px;
+    padding: 4px;
+    border: 0;
+    color: var(--color-text-secondary);
+    background: transparent;
+    cursor: pointer;
+  }
+  
+  .login-link:hover {
+    color: var(--color-text-primary);
+  }
+  
+  .form-message {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .form-message--error {
+    color: #f87171;
+  }
+  
+  .form-message--success {
+    color: #4ade80;
+  }
+  
+  .login-footer {
+    margin-top: 32px;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    text-align: center;
+  }
