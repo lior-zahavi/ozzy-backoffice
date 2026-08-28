@@ -1,7 +1,10 @@
 import { useState } from "react";
 import "./login-page.css";
 import {sendPasswordResetEmail, signInWithEmailAndPassword,} from "firebase/auth";
-  import {auth, isFirebaseConfigured,} from "../services/firebase";
+import {auth, isFirebaseConfigured,} from "../services/firebase";
+import { useNavigate } from "react-router-dom";
+
+
 const isOzzyEmail = (email) => {
   return /^[^@\s]+@ozzystory\.com$/i.test(email.trim());
 }
@@ -13,6 +16,8 @@ function LoginPage() {
   const [message, setMessage] = useState("");
   const [isResetMode, setIsResetMode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -38,6 +43,7 @@ function LoginPage() {
     try{
         setIsSubmitting(true);
         await signInWithEmailAndPassword(auth, normalizedEmail, password,);
+        navigate('/organizations', { replace: true });
     }
     catch(firebaseError){
         if(firebaseError.code==="auth/multi-factor-auth-required"){
@@ -158,25 +164,14 @@ function LoginPage() {
           </button>
         </form>
 
-        {isResetMode ? (
-          <button
-            className="login-link"
-            type="button"
-            onClick={isResetMode? showSignInForm : showResetForm}
-            disabled={isSubmitting}
-          >
-  {isResetMode ? "Back to Sign In" : "Forgot Password?"}
-  </button>
-        ) : (
-          <button
-            className="login-link"
-            type="button"
-            onClick={isResetMode ? showSignInForm : showResetForm}
-            disabled={isSubmitting}
-            >
-  {isResetMode ? "Back to Sign In" : "Forgot Password?"}
-  </button>
-        )}
+        <button
+  className="login-link"
+  type="button"
+  onClick={isResetMode ? showSignInForm : showResetForm}
+  disabled={isSubmitting}
+>
+  {isResetMode ? 'Back to Sign In' : 'Forgot Password?'}
+</button>
       </section>
 
       <footer className="login-footer">
