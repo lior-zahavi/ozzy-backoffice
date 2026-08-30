@@ -1,42 +1,68 @@
 .sidebar {
-    width: var(--sidebar-width);
-    flex-shrink: 0;
-    min-height: 100vh;
-    padding: 24px 16px;
-    background-color: var(--color-surface);
-    border-right: 1px solid var(--color-border);
-  }
-  
-  .sidebar-logo {
-    margin-bottom: 32px;
-    padding: 0 12px;
-    font-size: 24px;
-    font-weight: 700;
-  }
-  
-  .sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .nav-item {
-    width: 100%;
-    padding: 12px;
-    border: 0;
-    border-radius: 8px;
-    color: var(--color-text-secondary);
-    background: transparent;
-    text-align: left;
-    cursor: pointer;
-  }
-  
-  .nav-item:hover {
-    color: var(--color-text-primary);
-    background-color: var(--color-surface-hover);
-  }
-  
-  .nav-item--active {
-    color: var(--color-text-primary);
-    background-color: var(--color-accent-soft);
-  }
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  padding: 24px 16px;
+  color: var(--color-text-primary);
+  background-color:  var(--color-neutral);
+  border-right: 1px solid var(--color-border);
+}
+
+.sidebar-brand {
+  margin-bottom: 32px;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-brand-name {
+  color: var(--color-primary);
+  font-family: 'Hanken Grotesk', sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 700;
+}
+
+.sidebar-brand-subtitle {
+  color: var(--color-text-secondary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  border: 0;
+  border-radius: 2px;
+  color: var(--color-text-secondary);
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.nav-item--active {
+  color: var(--color-text-primary);
+  background-color: var(--color-secondary);
+}
+
+.nav-item-icon {
+  flex-shrink: 0;
+  font-size: 20px;
+}

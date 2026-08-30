@@ -1,13 +1,10 @@
 import { useState } from "react";
-import "./login-page.css";
 import {sendPasswordResetEmail, signInWithEmailAndPassword,} from "firebase/auth";
 import {auth, isFirebaseConfigured,} from "../services/firebase";
 import { useNavigate } from "react-router-dom";
-
-
-const isOzzyEmail = (email) => {
-  return /^[^@\s]+@ozzystory\.com$/i.test(email.trim());
-}
+import AuthField from "../auth/AuthField";
+import AuthLayout from "../auth/AuthLayout";
+import { isOzzyEmail } from "../auth/authUtils";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -16,13 +13,17 @@ function LoginPage() {
   const [message, setMessage] = useState("");
   const [isResetMode, setIsResetMode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
+  const clearFeedback = () => {
+    setError("");
+    setMessage("");
+  };
+  
   const navigate = useNavigate();
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    setError("");
-    setMessage("");
+    clearFeedback();
 
     const normalizedEmail = email.trim().toLowerCase();
 
@@ -90,95 +91,113 @@ function LoginPage() {
   }
   const showResetForm = () => {
     setIsResetMode(true);
-    setError("");
-    setMessage("");
+    clearFeedback();
   }
   
   const showSignInForm = () => {
     setIsResetMode(false);
-    setError("");
-    setMessage("");
+    clearFeedback();
   }
 
   return (
-    <main className="login-page">
-      <section className="login-card">
-        <div className="login-logo">Ozzy</div>
-
-        <h1>{isResetMode ? "Reset password" : "Sign in"}</h1>
-
-        <p className="login-description">
-          {isResetMode
-            ? "Enter your work email to receive reset instructions."
-            : "Sign in to access the Ozzy Backoffice."}
-        </p>
-
-        <form
-          className="login-form"
-          onSubmit={isResetMode ? handlePasswordReset : handleSignIn}
-        >
-          <div className="form-field">
-            <label htmlFor="email">Email</label>
-
-            <input
-              id="email"
-              type="email"
-              value={email}
-              autoComplete="email"
-              placeholder="name@ozzystory.com"
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </div>
-
-          {!isResetMode && (
-            <div className="form-field">
-              <label htmlFor="password">Password</label>
-
-              <input
-                id="password"
-                type="password"
-                value={password}
-                autoComplete="current-password"
-                placeholder="Enter your password"
-                onChange={(event) => setPassword(event.target.value)}
-                required
-              />
-            </div>
-          )}
-
-          {error && (
-            <p className="form-message form-message--error" role="alert">
-              {error}
-            </p>
-          )}
-
-          {message && (
-            <p className="form-message form-message--success" role="status">
-              {message}
-            </p>
-          )}
-
-          <button className="login-submit" type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Please wait..." : isResetMode?"Send reset email":"Sign In"}
-          </button>
-        </form>
-
+    <AuthLayout>
+      <form
+        className="auth-form"
+        onSubmit={isResetMode ? handlePasswordReset : handleSignIn}>
+        <AuthField
+          id="email"
+          label="Email Address"
+          icon="mail"
+          type="email"
+          value={email}
+          autoComplete="email"
+          placeholder="editor@ozzystory.com"
+          onChange={(event) => setEmail(event.target.value)}
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? 'auth-error' : undefined}
+          required
+        />
+  
+        {!isResetMode && (
+          <AuthField
+            id="password"
+            label="Password"
+            icon="lock"
+            type="password"
+            value={password}
+            autoComplete="current-password"
+            placeholder="••••••••"
+            onChange={(event) => setPassword(event.target.value)}
+            aria-invalid={Boolean(error)}
+            aria-describedby={error ? 'auth-error' : undefined}
+            required
+            action={
+              <button
+                className="auth-text-button"
+                type="button"
+                onClick={showResetForm}
+                disabled={isSubmitting}>
+                Forgot Password?
+              </button>
+            }
+          />
+        )}
+  
+        {isResetMode && (
+          <p className="auth-instructions">
+            Enter your work email to receive reset instructions.
+          </p>
+        )}
+  
+        {error && (
+          <p  id="auth-error" className="auth-message auth-message--error" role="alert">
+            {error}
+          </p>
+        )}
+  
+        {message && (
+          <p className="auth-message auth-message--success" role="status">
+            {message}
+          </p>
+        )}
+  
         <button
-  className="login-link"
-  type="button"
-  onClick={isResetMode ? showSignInForm : showResetForm}
-  disabled={isSubmitting}
->
-  {isResetMode ? 'Back to Sign In' : 'Forgot Password?'}
-</button>
-      </section>
-
-      <footer className="login-footer">
-        Protected system. Authorized users only.
-      </footer>
-    </main>
+          className="auth-submit"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          <span>
+            {isSubmitting
+              ? 'Please wait...'
+              : isResetMode
+                ? 'Send Reset Email'
+                : 'Sign In'}
+          </span>
+  
+          {!isResetMode && (
+            <span
+              className="material-symbols-outlined"
+              aria-hidden="true"
+            >
+              arrow_forward
+            </span>
+          )}
+        </button>
+      </form>
+  
+      {isResetMode && (
+        <button
+          className="auth-back-button"
+          type="button"
+          onClick={showSignInForm}
+          disabled={isSubmitting}
+        >
+          Back to Sign In
+        </button>
+      )}
+    </AuthLayout>
   )
+
 }
 
 export default LoginPage;

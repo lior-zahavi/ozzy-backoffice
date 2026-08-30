@@ -12,6 +12,19 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/access-denied" element={<AccessDeniedPage />} />
 
+      {import.meta.env.DEV && (
+  <>
+    <Route
+      path="/preview/shell"
+      element={<BackofficePage />}
+    />
+
+    <Route
+      path="/preview/mfa"
+      element={<MfaEnrollmentPage />}
+    />
+  </>
+)}
       <Route element={<ProtectedRoute allowWithoutMfa />}>
         <Route path="/mfa-enroll" element={<MfaEnrollmentPage />} />
       </Route>

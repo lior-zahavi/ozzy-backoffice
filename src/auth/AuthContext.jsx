@@ -1,12 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { multiFactor, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../services/firebase";
+import { isOzzyEmail } from "../auth/authUtils";
 
 const AuthContext = createContext(null);
 
-const isOzzyEmail = (email = "") => {
-  return /^[^@\s]+@ozzystory\.com$/i.test(email.trim());
-}
+
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -39,7 +38,7 @@ export function AuthProvider({ children }) {
       }}>{children}</AuthContext.Provider>
   )
 }
-
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);
 }

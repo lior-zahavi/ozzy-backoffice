@@ -1,23 +1,42 @@
 :root {
-  --color-background: #0f1117;
-  --color-surface: #171a22;
-  --color-surface-hover: #20242e;
-  --color-border: #2a2f3a;
+  --color-primary: #4cd7f6;
+  --color-primary-container: #06b6d4;
+  --color-primary-hover: #22d3ee;
 
-  --color-text-primary: #f4f5f7;
-  --color-text-secondary: #9ca3af;
+  --color-secondary: #6d28d9;
+  --color-tertiary: #e89337;
 
-  --color-accent: #8b5cf6;
-  --color-accent-soft: rgba(139, 92, 246, 0.15);
+  --color-background: #0c1322;
+  --color-surface: #141b2b;
+  --color-surface-container: #191f2f;
+  --color-surface-high: #232a3a;
+  --color-surface-highest: #2e3545;
+  --color-surface-hover: #2e3545;
 
-  --sidebar-width: 240px;
-  --header-height: 72px;
+  --color-text-primary: #dce2f7;
+  --color-text-secondary: #bcc9cd;
+  --color-text-on-button: #1f2937;
 
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    sans-serif;
+  --color-border: #374151;
+  --color-outline: #869397;
+
+  --color-error: #ffb4ab;
+  --color-success: #10b981;
+
+  --color-env-www: #10b981;
+  --color-env-eduil: #f59e0b;
+
+  --sidebar-width: 260px;
+  --header-height: 52px;
+  --auth-card-width: 448px;
+
+  --color-neutral: #111827;
+  
+  font-family: Inter, system-ui, sans-serif;
   color: var(--color-text-primary);
   background-color: var(--color-background);
 }
+
 .visually-hidden {
   position: absolute;
   width: 1px;
