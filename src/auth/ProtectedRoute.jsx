@@ -1,8 +1,8 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
-function ProtectedRoute({ allowWithoutMfa = false }) {
-  const { user, isLoading, isEditor, hasMfa } = useAuth();
+function ProtectedRoute() {
+  const { user, isLoading, isEditor } = useAuth();
 
   if (isLoading) {
     return <p>Loading...</p>
@@ -14,14 +14,6 @@ function ProtectedRoute({ allowWithoutMfa = false }) {
 
   if (!isEditor) {
     return <Navigate to="/access-denied" replace />
-  }
-
-  if (!hasMfa && !allowWithoutMfa) {
-    return <Navigate to="/mfa-enroll" replace />
-  }
-
-  if (hasMfa && allowWithoutMfa) {
-    return <Navigate to="/organizations" replace />
   }
 
   return <Outlet />

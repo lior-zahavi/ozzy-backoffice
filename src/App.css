@@ -32,6 +32,13 @@
 
   --color-neutral: #111827;
   
+  --color-workspace-background: #f8fafc;
+--color-workspace-surface: #ffffff;
+--color-workspace-text: #111827;
+--color-workspace-muted: #869397;
+--color-workspace-border: #bcc9cd;
+--color-workspace-disabled: #e5e7eb;
+
   font-family: Inter, system-ui, sans-serif;
   color: var(--color-text-primary);
   background-color: var(--color-background);
@@ -57,18 +64,4 @@
 .main-area {
   flex: 1;
   min-width: 0;
-}
-
-.page-content {
-  padding: 32px;
-}
-
-.page-content h1 {
-  margin: 0 0 8px;
-  font-size: 32px;
-}
-
-.page-content p {
-  margin: 0;
-  color: var(--color-text-secondary);
 }

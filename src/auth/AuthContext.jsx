@@ -1,43 +1,96 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { multiFactor, onAuthStateChanged } from "firebase/auth";
-import { auth } from "../services/firebase";
-import { isOzzyEmail } from "../auth/authUtils";
+import {
+  createContext,
+  useContext,
+  useState,
+} from 'react';
+import { signInRequest } from '../services/authApi';
+import { isOzzyEmail } from './authUtils';
 
 const AuthContext = createContext(null);
 
+const AUTH_STORAGE_KEY = 'ozzy_backoffice_auth';
 
+const emptyAuth = {
+  user: null,
+  token: null,
+};
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(Boolean(auth));
-  useEffect(() => {
-    if (!auth) {
-      return undefined;
+function readStoredAuth() {
+  const storedAuth = localStorage.getItem(AUTH_STORAGE_KEY,);
+
+  if (!storedAuth) {
+    return emptyAuth;
+  }
+
+  try {
+    const parsedAuth = JSON.parse(storedAuth);
+
+    if (!parsedAuth?.user?.email ||!parsedAuth?.token)
+     {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+
+      return emptyAuth;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setIsLoading(false);
-    })
+    return parsedAuth;
+  } catch {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
 
-    return unsubscribe;
-  }, [])
+    return emptyAuth;
+  }
+}
 
-  const isEditor = isOzzyEmail(user?.email);
+export function AuthProvider({ children }) {
+  const [auth, setAuth] = useState(readStoredAuth);
 
-  const hasMfa =Boolean(user) && 
-                multiFactor(user).enrolledFactors.length > 0;
+  const signIn = async (email, password) => {
+    const result = await signInRequest(
+      email,
+      password,
+    );
+
+    const nextAuth = {
+      user: {
+        email,
+      },
+      token: result.token,
+    };
+
+    localStorage.setItem(
+      AUTH_STORAGE_KEY,
+      JSON.stringify(nextAuth),
+    );
+
+    setAuth(nextAuth);
+
+    return result;
+  };
+
+  const signOut = () => {
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+    setAuth(emptyAuth);
+  };
+
+  const isEditor = isOzzyEmail(
+    auth.user?.email,
+  );
 
   return (
     <AuthContext.Provider
       value={{
-        user,
-        isLoading,
+        user: auth.user,
+        token: auth.token,
+        isLoading: false,
         isEditor,
-        hasMfa,
-      }}>{children}</AuthContext.Provider>
-  )
+        signIn,
+        signOut,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
+
 // eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   return useContext(AuthContext);

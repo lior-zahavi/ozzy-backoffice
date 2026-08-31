@@ -1,20 +1,19 @@
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import { Outlet } from 'react-router-dom';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+import './organizations.css';
 
-function BackofficePage(){
-  return(
-<div className="app-shell">
-  <Sidebar/>
+function BackofficePage() {
+  return (
+    <div className="app-shell">
+      <Sidebar />
 
-  <main className="main-area">
-    <Header/>
-    <section className="page-content">
-    <h1>Organizations</h1>
-    <p>Organization management will be added here.</p>
-    </section>
-
-  </main>
-</div>
-  );
+      <main className="main-area">
+        <Header />
+        <Outlet />
+      </main>
+    </div>
+  )
 }
+
 export default BackofficePage;

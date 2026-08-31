@@ -1,25 +1,45 @@
-import { useState } from "react";
-import {sendPasswordResetEmail, signInWithEmailAndPassword,} from "firebase/auth";
-import {auth, isFirebaseConfigured,} from "../services/firebase";
-import { useNavigate } from "react-router-dom";
-import AuthField from "../auth/AuthField";
-import AuthLayout from "../auth/AuthLayout";
-import { isOzzyEmail } from "../auth/authUtils";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthField from '../auth/AuthField';
+import AuthLayout from '../auth/AuthLayout';
+import { useAuth } from '../auth/AuthContext';
+import { isOzzyEmail } from '../auth/authUtils';
+import { requestPasswordReset } from '../services/authApi';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [isResetMode, setIsResetMode] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const clearFeedback = () => {
-    setError("");
-    setMessage("");
-  };
-  
+
   const navigate = useNavigate();
+  const { signIn } = useAuth();
+
+  const clearFeedback = () => {
+    setError('');
+    setMessage('');
+  }
+
+  const handleApiError = (apiError) => {
+    if (apiError.status === 401) {
+      setError('Unable to sign in. Check your email and password.',);
+      return;
+    }
+
+    if (apiError.status === 403) {
+      setError('You are not authorized to access this system.',);
+      return;
+    }
+
+    if (apiError.status === 0) {
+      setError('Authentication API is not configured.');
+      return;
+    }
+
+    setError('Unable to complete the request. Please try again.');
+  }
 
   const handleSignIn = async (event) => {
     event.preventDefault();
@@ -28,72 +48,57 @@ function LoginPage() {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!isOzzyEmail(normalizedEmail)) {
-      setError("Please use your @ozzystory.com email address.");
+      setError('Please use your @ozzystory.com email address.',);
       return;
     }
 
     if (!password) {
-      setError("Please enter your password.");
+      setError('Please enter your password.');
       return;
     }
 
-    if(!isFirebaseConfigured||!auth){
-        setError("Authentication is not configured yet.");
-        return;
-    }
-    try{
-        setIsSubmitting(true);
-        await signInWithEmailAndPassword(auth, normalizedEmail, password,);
-        navigate('/organizations', { replace: true });
-    }
-    catch(firebaseError){
-        if(firebaseError.code==="auth/multi-factor-auth-required"){
-            setError("Additional verification is required.");
-            return;
-        }
-        setError("Unable to sign in. Check your email and password.");
-    }
-     finally {
-      setIsSubmitting(false)
-    }
-    
-  }
-
-  const handlePasswordReset = async (event) => {
-    event.preventDefault();
-  
-    setError("");
-    setMessage("");
-  
-    const normalizedEmail = email.trim().toLowerCase();
-  
-    if (!isOzzyEmail(normalizedEmail)) {
-      setError("Please enter your @ozzystory.com email address.");
-      return;
-    }
-  
-    if (!isFirebaseConfigured || !auth) {
-      setError("Authentication is not configured yet.");
-      return;
-    }
-  
     try {
       setIsSubmitting(true);
-  
-      await sendPasswordResetEmail(auth, normalizedEmail);
-  
-      setMessage("Password reset instructions were sent to your email.");
-    } catch {
-      setError("Unable to send a password reset email. Please try again.");
+
+      await signIn(normalizedEmail, password);
+
+      navigate('/organizations', {replace: true,});
+    } catch (apiError) {
+      handleApiError(apiError);
     } finally {
       setIsSubmitting(false);
     }
   }
+
+  const handlePasswordReset = async (event) => {
+    event.preventDefault();
+    clearFeedback();
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!isOzzyEmail(normalizedEmail)) {
+      setError('Please enter your @ozzystory.com email address.',);
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      await requestPasswordReset(normalizedEmail);
+
+      setMessage('Password reset instructions were sent to your email.',);
+    } catch (apiError) {
+      handleApiError(apiError);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   const showResetForm = () => {
     setIsResetMode(true);
     clearFeedback();
   }
-  
+
   const showSignInForm = () => {
     setIsResetMode(false);
     clearFeedback();
@@ -103,7 +108,12 @@ function LoginPage() {
     <AuthLayout>
       <form
         className="auth-form"
-        onSubmit={isResetMode ? handlePasswordReset : handleSignIn}>
+        onSubmit={
+          isResetMode
+            ? handlePasswordReset
+            : handleSignIn
+        }
+      >
         <AuthField
           id="email"
           label="Email Address"
@@ -114,10 +124,12 @@ function LoginPage() {
           placeholder="editor@ozzystory.com"
           onChange={(event) => setEmail(event.target.value)}
           aria-invalid={Boolean(error)}
-          aria-describedby={error ? 'auth-error' : undefined}
+          aria-describedby={
+            error ? 'auth-error' : undefined
+          }
           required
         />
-  
+
         {!isResetMode && (
           <AuthField
             id="password"
@@ -127,40 +139,53 @@ function LoginPage() {
             value={password}
             autoComplete="current-password"
             placeholder="••••••••"
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={(event) =>
+              setPassword(event.target.value)
+            }
             aria-invalid={Boolean(error)}
-            aria-describedby={error ? 'auth-error' : undefined}
+            aria-describedby={
+              error ? 'auth-error' : undefined
+            }
             required
             action={
               <button
                 className="auth-text-button"
                 type="button"
                 onClick={showResetForm}
-                disabled={isSubmitting}>
+                disabled={isSubmitting}
+              >
                 Forgot Password?
               </button>
             }
           />
         )}
-  
+
         {isResetMode && (
           <p className="auth-instructions">
-            Enter your work email to receive reset instructions.
+            Enter your work email to receive reset
+            instructions.
           </p>
         )}
-  
+
         {error && (
-          <p  id="auth-error" className="auth-message auth-message--error" role="alert">
+          <p
+            id="auth-error"
+            className="auth-message auth-message--error"
+            role="alert"
+          >
             {error}
           </p>
         )}
-  
+
         {message && (
-          <p className="auth-message auth-message--success" role="status">
+          <p
+            className="auth-message auth-message--success"
+            role="status"
+          >
             {message}
           </p>
         )}
-  
+
         <button
           className="auth-submit"
           type="submit"
@@ -173,7 +198,7 @@ function LoginPage() {
                 ? 'Send Reset Email'
                 : 'Sign In'}
           </span>
-  
+
           {!isResetMode && (
             <span
               className="material-symbols-outlined"
@@ -184,7 +209,7 @@ function LoginPage() {
           )}
         </button>
       </form>
-  
+
       {isResetMode && (
         <button
           className="auth-back-button"
@@ -197,7 +222,6 @@ function LoginPage() {
       )}
     </AuthLayout>
   )
-
 }
 
 export default LoginPage;
