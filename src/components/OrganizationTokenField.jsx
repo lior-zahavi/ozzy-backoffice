@@ -64,7 +64,11 @@ function OrganizationTokenField({
           className="token-visibility-button"
           type="button"
           onClick={toggleVisibility}
-          aria-label={isVisible? 'Hide organization token': 'Show organization token'}
+          aria-label={t(
+            isVisible
+              ? 'backoffice.orgManagement.integrationDetails.hideToken'
+              : 'backoffice.orgManagement.integrationDetails.showToken',
+          )}
         >
           <span
             className="material-symbols-outlined"

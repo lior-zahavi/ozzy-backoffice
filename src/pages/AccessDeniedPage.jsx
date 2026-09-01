@@ -1,8 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 function AccessDeniedPage() {
+    const { t } = useTranslation();
+
     return (
       <main>
-        <h1>Access denied</h1>
-        <p>This system is available only to authorized Ozzy editors.</p>
+        <h1>{t('backoffice.common.accessDeniedTitle')}</h1>
+        <p>{t('backoffice.common.accessDeniedText')}</p>
       </main>
     )
   }

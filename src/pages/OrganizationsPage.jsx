@@ -1,5 +1,5 @@
 import {useEffect,useState,} from 'react';
-import {useLocation, useNavigate,} from 'react-router-dom';
+import {useNavigate,} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../auth/AuthContext';
 import { listOrganizationsRequest } from '../services/organizationsApi';
@@ -34,7 +34,10 @@ function OrganizationsPage() {
           return;
         }
 
-        setError(requestError.message ||"Unable to load organizations.",);
+        setError(
+          requestError.message ||
+            t('backoffice.orgManagement.listErrorMessage'),
+        );
       } finally {
         if (!controller.signal.aborted) {
           setIsLoading(false);
@@ -47,7 +50,7 @@ function OrganizationsPage() {
     return () => {
       controller.abort();
     };
-  }, [token]);
+  }, [token, t]);
 
   const openCreatePage = () => {
     navigate('/organizations/new');
@@ -57,9 +60,9 @@ function OrganizationsPage() {
     <section className="organizations-page">
       <header className="page-heading">
         <div>
-          <h1>{t('backoffice.orgManagement.pageTitle')}</h1>
+          <h1 className="page-title">{t('backoffice.orgManagement.pageTitle')}</h1>
 
-          <p>
+          <p className="page-subtitle">
             {t('backoffice.orgManagement.pageSubtitle')}
           </p>
         </div>
@@ -134,10 +137,10 @@ function OrganizationsPage() {
             <table className="organizations-table">
               <thead>
                 <tr>
-                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.nameEn')}</th>
-                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.nameHe')}</th>
-                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.status')}</th>
-                  <th scope="col">{t('backoffice.sidebar.organizations')}</th>
+                  <th className="column-name-en" scope="col">{t('backoffice.orgManagement.coreIdentity.nameEn')}</th>
+                  <th className="column-name-he" scope="col">{t('backoffice.orgManagement.coreIdentity.nameHe')}</th>
+                  <th className="column-status" scope="col">{t('backoffice.orgManagement.coreIdentity.status')}</th>
+                  <th className="column-groups" scope="col">{t('backoffice.orgManagement.groups.title')}</th>
 
                   <th className="column-actions" scope="col">
                     <span className="visually-hidden">
@@ -159,7 +162,7 @@ function OrganizationsPage() {
                         {organization.name?.HE || '—'}
                       </td>
 
-                      <td>
+                      <td className="column-status">
                         {organization.status === 'Active' ? t('backoffice.orgManagement.statusActive') : organization.status === 'Inactive' ? t('backoffice.orgManagement.statusInactive') : t('backoffice.orgManagement.statusUnknown')}
                       </td>
 
@@ -167,7 +170,7 @@ function OrganizationsPage() {
                         {organization.group_count}
                       </td>
 
-                      <td className="table-actions">
+                      <td className="column-actions table-actions">
   <div className="table-action-buttons">
       <button
         className="table-icon-button"
@@ -177,7 +180,9 @@ function OrganizationsPage() {
             `/organizations/${organization.id}`,
           )
         }
-        aria-label={`View ${organization.name?.EN}`}
+        aria-label={t('backoffice.orgManagement.viewOrgLabel', {
+          name: organization.name?.EN || organization.name?.HE,
+        })}
         title={t('backoffice.orgManagement.viewOrg')}
       >
       <span
@@ -191,9 +196,13 @@ function OrganizationsPage() {
       <button
         className="table-icon-button"
         type="button"
-        disabled
-        aria-label={`Edit ${organization.name?.EN}`}
-        title={t('backoffice.orgManagement.editingLater')}
+        onClick={() =>
+          navigate(`/organizations/${organization.id}/edit`)
+        }
+        aria-label={t('backoffice.orgManagement.editOrgLabel', {
+          name: organization.name?.EN || organization.name?.HE,
+        })}
+        title={t('backoffice.orgManagement.editOrg')}
       >
       <span
         className="material-symbols-outlined"

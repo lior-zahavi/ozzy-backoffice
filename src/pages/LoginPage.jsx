@@ -26,21 +26,21 @@ function LoginPage() {
 
   const handleApiError = (apiError) => {
     if (apiError.status === 401) {
-      setError('Unable to sign in. Check your email and password.',);
+      setError(t('backoffice.login.invalidCredentials'));
       return;
     }
 
     if (apiError.status === 403) {
-      setError('You are not authorized to access this system.',);
+      setError(t('backoffice.login.unauthorized'));
       return;
     }
 
     if (apiError.status === 0) {
-      setError('Authentication API is not configured.');
+      setError(t('backoffice.login.apiNotConfigured'));
       return;
     }
 
-    setError('Unable to complete the request. Please try again.');
+    setError(t('backoffice.login.requestFailed'));
   }
 
   const handleSignIn = async (event) => {
@@ -50,12 +50,12 @@ function LoginPage() {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!isOzzyEmail(normalizedEmail)) {
-      setError('Please use your @ozzystory.com email address.',);
+      setError(t('backoffice.login.invalidDomain'));
       return;
     }
 
     if (!password) {
-      setError('Please enter your password.');
+      setError(t('backoffice.login.passwordRequired'));
       return;
     }
 
@@ -79,7 +79,7 @@ function LoginPage() {
     const normalizedEmail = email.trim().toLowerCase();
 
     if (!isOzzyEmail(normalizedEmail)) {
-      setError('Please enter your @ozzystory.com email address.',);
+      setError(t('backoffice.login.resetInvalidDomain'));
       return;
     }
 
@@ -88,7 +88,7 @@ function LoginPage() {
 
       await requestPasswordReset(normalizedEmail);
 
-      setMessage('Password reset instructions were sent to your email.',);
+      setMessage(t('backoffice.login.resetSuccess'));
     } catch (apiError) {
       handleApiError(apiError);
     } finally {
@@ -154,8 +154,7 @@ function LoginPage() {
 
         {isResetMode && (
           <p className="auth-instructions">
-            Enter your work email to receive reset
-            instructions.
+            {t('backoffice.login.resetInstructions')}
           </p>
         )}
 
@@ -185,9 +184,9 @@ function LoginPage() {
         >
           <span>
             {isSubmitting
-              ? 'Please wait...'
+              ? t('backoffice.login.pleaseWait')
               : isResetMode
-                ? 'Send Reset Email'
+                ? t('backoffice.login.sendResetEmail')
                 : t('backoffice.login.submit')}
           </span>
 
@@ -209,7 +208,7 @@ function LoginPage() {
           onClick={showSignInForm}
           disabled={isSubmitting}
         >
-          Back to Sign In
+          {t('backoffice.login.backToSignIn')}
         </button>
       )}
     </AuthLayout>

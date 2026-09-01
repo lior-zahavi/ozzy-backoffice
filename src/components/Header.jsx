@@ -4,11 +4,11 @@ import "./header.css";
 
 const headerActions = [
   {
-    label: "Notifications",
+    labelKey: 'backoffice.common.notifications',
     icon: "notifications",
   },
   {
-    label: "Help",
+    labelKey: 'backoffice.common.help',
     icon: "help",
   },
 ]
@@ -32,10 +32,10 @@ function Header() {
 
         {headerActions.map((action) => (
           <button
-            key={action.label}
+            key={action.labelKey}
             className="header-icon-button"
             type="button"
-            aria-label={action.label}>
+            aria-label={t(action.labelKey)}>
 
             <span
               className="material-symbols-outlined"
@@ -48,7 +48,7 @@ function Header() {
         <button
           className="header-avatar"
           type="button"
-          aria-label="User account">
+          aria-label={t('backoffice.common.userAccount')}>
           L
         </button>
       </div>

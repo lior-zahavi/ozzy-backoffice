@@ -8,7 +8,7 @@ const LANGUAGES = [
 ];
 
 function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -38,7 +38,7 @@ function LanguageSwitcher() {
         className="language-switcher-button"
         type="button"
         onClick={handleToggle}
-        aria-label="Select Language"
+        aria-label={t('backoffice.common.selectLanguage')}
         aria-expanded={isOpen}
       >
         <img

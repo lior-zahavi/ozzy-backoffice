@@ -18,7 +18,10 @@ const navItems = [
         </span>
       </div>
   
-        <nav className="sidebar-nav" aria-label="Main navigation">
+        <nav
+          className="sidebar-nav"
+          aria-label={t('backoffice.common.mainNavigation')}
+        >
           {navItems.map((item) => (
             <button key={item.labelKey} type="button"
                 className={`nav-item ${item.isActive ? 'nav-item--active' : ''}`}
@@ -30,7 +33,9 @@ const navItems = [
             </span>
             <span>{t(item.labelKey)}</span>
             {item.isStub && (
-              <span className="visually-hidden">Coming soon</span>
+              <span className="visually-hidden">
+                {t('backoffice.common.comingSoon')}
+              </span>
             )}
                
             </button>

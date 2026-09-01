@@ -1,11 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from './AuthContext';
 
 function ProtectedRoute() {
+  const { t } = useTranslation();
   const { user, isLoading, isEditor } = useAuth();
 
   if (isLoading) {
-    return <p>Loading...</p>
+    return <p>{t('backoffice.common.loading')}</p>
   }
 
   if (!user) {

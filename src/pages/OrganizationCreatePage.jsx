@@ -47,7 +47,10 @@ function OrganizationCreatePage() {
 
       navigate(organizationsPath);
     } catch (requestError) {
-      setError(requestError.message ||"Unable to create the organization.",);
+      setError(
+        requestError.message ||
+          t('backoffice.orgManagement.createErrorMessage'),
+      );
     } finally {
       setIsSaving(false);
     }

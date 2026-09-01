@@ -30,8 +30,12 @@ function GroupCard({
             className="icon-button"
             type="button"
             onClick={() => onDelete(index)}
-            aria-label={`Delete group ${index + 1}`}
-            title="Delete group"
+            aria-label={t('backoffice.orgManagement.groups.deleteGroup', {
+              number: index + 1,
+            })}
+            title={t('backoffice.orgManagement.groups.deleteGroup', {
+              number: index + 1,
+            })}
           >
             <span
               className="material-symbols-outlined"

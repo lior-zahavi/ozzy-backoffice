@@ -50,10 +50,10 @@
   margin-bottom: 0;
   padding: 8px 0;
   list-style: none;
-  background: #ffffff;
+  background: var(--color-workspace-surface);
   border: 1px solid var(--color-border);
   border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-dropdown);
   min-width: 140px;
   z-index: 1000;
   display: flex;
@@ -68,16 +68,16 @@
   border: none;
   cursor: pointer;
   font-size: 14px;
-  color: var(--color-text-primary);
+  color: var(--color-workspace-text);
   font-family: inherit;
 }
 
 .language-option:hover {
-  background-color: var(--color-surface-high);
+  background-color: var(--color-workspace-disabled);
 }
 
 .language-option.active {
-  color: var(--color-text-secondary);
+  color: var(--color-workspace-muted);
   cursor: default;
 }
 

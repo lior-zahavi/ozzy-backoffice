@@ -38,7 +38,7 @@ function MediaAssetsSection({
           {shouldShowLogo ? (
             <img
               src={logoUrl}
-              alt="Organization logo preview"
+              alt={t('backoffice.orgManagement.mediaAssets.logoAlt')}
               onError={() =>setFailedLogoUrl(logoUrl)}
             />
           ) : (
@@ -55,7 +55,7 @@ function MediaAssetsSection({
             className="text-button"
             type="button"
             disabled
-            title="This feature is not available yet">
+            title={t('backoffice.orgManagement.mediaAssets.fetchUnavailable')}>
             <span
               className="material-symbols-outlined"
               aria-hidden="true">
