@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {useLocation,useNavigate,} from 'react-router-dom';
+import {useNavigate,} from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import OrganizationForm from '../components/OrganizationForm';
 import { createOrganizationRequest } from '../services/organizationsApi';
@@ -9,6 +9,7 @@ const createEmptyOrganization = () => ({
   status: 'active',
   nameEn: '',
   nameHe: '',
+  studentQuota: '',
   schoolId: '',
   schoolRole: '',
   token: '',
@@ -18,7 +19,6 @@ const createEmptyOrganization = () => ({
 
 function OrganizationCreatePage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { token } = useAuth();
 
   const [values, setValues] = useState(
@@ -27,19 +27,11 @@ function OrganizationCreatePage() {
   const [isSaving, setIsSaving] =useState(false);
   const [error, setError] = useState("");
 
-  const isPreview =location.pathname.startsWith('/preview/');
-
-  const organizationsPath = isPreview? '/preview/organizations': '/organizations';
-
+  const organizationsPath = '/organizations';
   const discardChanges = () => {navigate(organizationsPath);};
 
   const createOrganization = async (event) => {
     event.preventDefault();
-
-    if (isPreview) {
-      setError("Saving is disabled in preview mode.",);
-      return;
-    }
 
     setError("");
     setIsSaving(true);
@@ -47,8 +39,7 @@ function OrganizationCreatePage() {
     try {
       const locale =document.documentElement.lang
           .toLowerCase()
-          .startsWith('he')
-          ? 'he': 'en';
+          .startsWith('he')? 'he': 'en';
 
       await createOrganizationRequest(values,token,locale,);
 

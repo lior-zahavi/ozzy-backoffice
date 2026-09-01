@@ -45,9 +45,9 @@ function OrganizationForm({
     <section className="organization-form-page">
       <header className="page-heading">
         <div>
-          <h1>{title}</h1>
+          <h1 className="page-title">{title}</h1>
 
-          <p>
+          <p className="page-subtitle">
             Manage identity, integration settings, and dynamic
             groups.
           </p>
@@ -60,9 +60,7 @@ function OrganizationForm({
             onClick={onDiscard}
             disabled={isSaving}
           >
-            {isViewMode
-              ? 'Back to Organizations'
-              : 'Discard Changes'}
+            {isViewMode? 'Back to Organizations': 'Discard Changes'}
           </button>
 
           {!isViewMode && (
@@ -72,11 +70,7 @@ function OrganizationForm({
               form="organization-form"
               disabled={isSaving}
             >
-              {isSaving
-                ? 'Saving...'
-                : isEditMode
-                  ? 'Save Changes'
-                  : 'Save Organization'}
+              {isSaving? 'Saving...': isEditMode? 'Save Changes': 'Save Organization'}
             </button>
           )}
         </div>
@@ -99,11 +93,9 @@ function OrganizationForm({
               <h2>
                 <span
                   className="material-symbols-outlined"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   badge
                 </span>
-
                 Core Identity
               </h2>
 
@@ -116,11 +108,8 @@ function OrganizationForm({
                   <input
                     id="organization-id"
                     type="text"
-                    value={
-                      values.id || 'Auto-generated'
-                    }
-                    readOnly
-                  />
+                    value={values.id || 'Auto-generated'}
+                    readOnly/>
 
                   <small>
                     Generated automatically and cannot be changed.
@@ -209,8 +198,7 @@ function OrganizationForm({
               <h2>
                 <span
                   className="material-symbols-outlined"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   integration_instructions
                 </span>
 
@@ -251,9 +239,7 @@ function OrganizationForm({
                 <OrganizationTokenField
                   schoolId={values.schoolId}
                   value={values.token}
-                  onValueChange={(token) =>
-                    updateValue('token', token)
-                  }
+                  onValueChange={(token) =>updateValue('token', token)}
                   readOnly={isViewMode}
                 />
               </div>

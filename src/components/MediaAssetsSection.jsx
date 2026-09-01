@@ -1,15 +1,10 @@
 import { useState } from 'react';
 
-function MediaAssetsSection({
-  logoUrl,
-  onLogoUrlChange,
-  readOnly = false,
-}) {
-  const [failedLogoUrl, setFailedLogoUrl] =
-    useState('');
+function MediaAssetsSection({logoUrl,onLogoUrlChange,readOnly = false,}) 
+{
+  const [failedLogoUrl, setFailedLogoUrl] =useState('');
 
-  const shouldShowLogo =
-    logoUrl && failedLogoUrl !== logoUrl;
+  const shouldShowLogo =logoUrl && failedLogoUrl !== logoUrl;
 
   const handleLogoUrlChange = (event) => {
     if (readOnly) {
@@ -38,15 +33,12 @@ function MediaAssetsSection({
             <img
               src={logoUrl}
               alt="Organization logo preview"
-              onError={() =>
-                setFailedLogoUrl(logoUrl)
-              }
+              onError={() =>setFailedLogoUrl(logoUrl)}
             />
           ) : (
             <span
               className="material-symbols-outlined"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               image
             </span>
           )}
@@ -57,12 +49,10 @@ function MediaAssetsSection({
             className="text-button"
             type="button"
             disabled
-            title="This feature is not available yet"
-          >
+            title="This feature is not available yet">
             <span
               className="material-symbols-outlined"
-              aria-hidden="true"
-            >
+              aria-hidden="true">
               language
             </span>
 

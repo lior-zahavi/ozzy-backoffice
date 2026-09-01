@@ -7,95 +7,6 @@
   background-color: var(--color-workspace-background);
 }
 
-.page-heading {
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto 32px;
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.page-heading h1 {
-  margin: 0 0 6px;
-  color: var(--color-workspace-text);
-  font-family: 'Hanken Grotesk', sans-serif;
-  font-size: clamp(28px, 4vw, 32px);
-  line-height: 1.25;
-  font-weight: 600;
-}
-
-.page-heading p {
-  margin: 0;
-  color: var(--color-workspace-muted);
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.primary-button,
-.secondary-button,
-.text-button {
-  min-height: 40px;
-  padding: 8px 14px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  font-size: 14px;
-  line-height: 20px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.primary-button {
-  border: 1px solid var(--color-primary-container);
-  color: var(--color-text-on-button);
-  background-color: var(--color-primary-container);
-}
-
-.primary-button:hover:not(:disabled) {
-  background-color: var(--color-primary-hover);
-}
-
-.secondary-button {
-  border: 1px solid var(--color-workspace-border);
-  color: var(--color-workspace-text);
-  background-color: var(--color-workspace-surface);
-}
-
-.secondary-button:hover:not(:disabled) {
-  border-color: var(--color-primary-container);
-  color: var(--color-primary-container);
-}
-
-.text-button {
-  border: 1px solid transparent;
-  color: var(--color-workspace-text);
-  background: transparent;
-}
-
-.text-button:hover:not(:disabled) {
-  color: var(--color-primary-container);
-}
-
-.primary-button:focus-visible,
-.secondary-button:focus-visible,
-.text-button:focus-visible {
-  outline: 2px solid var(--color-primary-container);
-  outline-offset: 2px;
-}
-
-.primary-button:disabled,
-.secondary-button:disabled,
-.text-button:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-/* Organization list */
-
 .organizations-table-wrapper,
 .organizations-empty {
   width: 100%;
@@ -104,6 +15,7 @@
 }
 
 .organizations-table-wrapper {
+  container-type: inline-size;
   overflow-x: auto;
   border: 1px solid var(--color-workspace-border);
   border-radius: 4px;
@@ -112,7 +24,7 @@
 
 .organizations-table {
   width: 100%;
-  min-width: 640px;
+  min-width: 0;
   border-collapse: collapse;
 }
 
@@ -120,7 +32,7 @@
 .organizations-table td {
   padding: 14px 16px;
   border-bottom: 1px solid var(--color-workspace-border);
-  text-align: left;
+  text-align: center;
 }
 
 .organizations-table th {
@@ -149,13 +61,13 @@
 }
 
 .organizations-table td[dir='rtl'] {
-  text-align: right;
+  text-align: center;
 }
 
 .table-actions {
   width: 1%;
   white-space: nowrap;
-  text-align: right;
+  text-align: center;
 }
 
 .organizations-empty {
@@ -582,7 +494,7 @@
     display: flex;
     gap: 8px;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
   }
   
   .table-icon-button {
@@ -640,15 +552,6 @@
     gap: 16px;
   }
 
-  .page-heading {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .page-heading .primary-button {
-    align-self: flex-start;
-  }
-
   .form-actions {
     width: 100%;
     flex-wrap: wrap;
@@ -669,11 +572,6 @@
     padding: 20px 16px;
   }
 
-  .page-heading {
-    margin-bottom: 24px;
-  }
-
-  .page-heading .primary-button,
   .form-actions .primary-button,
   .form-actions .text-button {
     width: 100%;
@@ -694,5 +592,46 @@
   .logo-preview {
     width: 100%;
     max-width: 160px;
+  }
+}
+
+@container (max-width: 650px) {
+  .column-groups {
+    display: none;
+  }
+}
+
+@container (max-width: 470px) {
+  .column-name-he,
+  .column-status,
+  .column-groups {
+    display: none;
+  }
+
+  .organizations-table th,
+  .organizations-table td {
+    padding: 12px;
+  }
+
+  .column-name-en {
+    overflow-wrap: anywhere;
+  }
+
+  th.column-name-en {
+    font-size: 0;
+  }
+
+  th.column-name-en::after {
+    content: 'Name';
+    font-size: 11px;
+  }
+
+  .table-action-buttons {
+    gap: 4px;
+  }
+
+  .table-icon-button {
+    width: 32px;
+    height: 32px;
   }
 }

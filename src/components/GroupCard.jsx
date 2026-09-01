@@ -1,10 +1,5 @@
-function GroupCard({
-  group,
-  index,
-  onChange,
-  onDelete,
-  readOnly = false,
-}) {
+function GroupCard({group,index,onChange,onDelete,readOnly = false,})
+ {
   const updateField = (event) => {
     if (readOnly) {
       return;

@@ -108,11 +108,7 @@ function LoginPage() {
     <AuthLayout>
       <form
         className="auth-form"
-        onSubmit={
-          isResetMode
-            ? handlePasswordReset
-            : handleSignIn
-        }
+        onSubmit={isResetMode? handlePasswordReset: handleSignIn}
       >
         <AuthField
           id="email"
@@ -124,9 +120,7 @@ function LoginPage() {
           placeholder="editor@ozzystory.com"
           onChange={(event) => setEmail(event.target.value)}
           aria-invalid={Boolean(error)}
-          aria-describedby={
-            error ? 'auth-error' : undefined
-          }
+          aria-describedby={error ? 'auth-error' : undefined}
           required
         />
 
@@ -139,13 +133,9 @@ function LoginPage() {
             value={password}
             autoComplete="current-password"
             placeholder="••••••••"
-            onChange={(event) =>
-              setPassword(event.target.value)
-            }
+            onChange={(event) =>setPassword(event.target.value)}
             aria-invalid={Boolean(error)}
-            aria-describedby={
-              error ? 'auth-error' : undefined
-            }
+            aria-describedby={error ? 'auth-error' : undefined}
             required
             action={
               <button

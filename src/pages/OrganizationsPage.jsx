@@ -1,25 +1,18 @@
 import {useEffect,useState,} from 'react';
-import {useLocation, useNavigate,} from 'react-router-dom';
+import {useNavigate,} from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { listOrganizationsRequest } from '../services/organizationsApi';
 
 function OrganizationsPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { token } = useAuth();
 
   const [organizations, setOrganizations] =useState([]);
   const [isLoading, setIsLoading] =useState(true);
   const [error, setError] = useState("");
 
-  const isPreview =location.pathname.startsWith('/preview/');
 
   useEffect(() => {
-    if (isPreview) {
-      setIsLoading(false);
-      return undefined;
-    }
-
     const controller = new AbortController();
 
     const loadOrganizations = async () => {
@@ -52,21 +45,19 @@ function OrganizationsPage() {
     return () => {
       controller.abort();
     };
-  }, [isPreview, token]);
+  }, [token]);
 
   const openCreatePage = () => {
-    const createPath = isPreview? '/preview/organizations/new': '/organizations/new';
-
-    navigate(createPath);
+    navigate('/organizations/new');
   };
 
   return (
     <section className="organizations-page">
       <header className="page-heading">
         <div>
-          <h1>Organizations</h1>
+          <h1 className="page-title">Organizations</h1>
 
-          <p>
+          <p className="page-subtitle">
             Manage organizations and their integrations.
           </p>
         </div>
@@ -117,9 +108,7 @@ function OrganizationsPage() {
         </div>
       )}
 
-      {!isLoading &&
-        !error &&
-        organizations.length === 0 && (
+      {!isLoading && !error && organizations.length === 0 && (
           <div className="organizations-empty">
             <span
               className="material-symbols-outlined"
@@ -143,12 +132,12 @@ function OrganizationsPage() {
             <table className="organizations-table">
               <thead>
                 <tr>
-                  <th scope="col">Name (EN)</th>
-                  <th scope="col">Name (HE)</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Groups</th>
+                  <th className="column-name-en" scope="col">Name (EN)</th>
+                  <th className="column-name-he" scope="col">Name (HE)</th>
+                  <th className="column-status" scope="col">Status</th>
+                  <th className="column-groups" scope="col">Groups</th>
 
-                  <th scope="col">
+                  <th className="column-actions" scope="col">
                     <span className="visually-hidden">
                       Actions
                     </span>
@@ -160,57 +149,53 @@ function OrganizationsPage() {
                 {organizations.map(
                   (organization) => (
                     <tr key={organization.id}>
-                      <td>
+                      <td className="column-name-en">
                         {organization.name?.EN || '—'}
                       </td>
 
-                      <td dir="rtl" lang="he">
+                      <td className="column-name-he" dir="rtl" lang="he">
                         {organization.name?.HE || '—'}
                       </td>
 
-                      <td>{organization.status}</td>
+                      <td className="column-status">{organization.status}</td>
 
-                      <td>
+                      <td className="column-groups">
                         {organization.group_count}
                       </td>
+                      <td className="column-actions table-actions">
+                <div className="table-action-buttons">
+                   <button
+                     className="table-icon-button"
+                     type="button"
+                      onClick={() =>
+                       navigate(
+                         `/organizations/${organization.id}`,
+                       )
+                     }
+                      aria-label={`View ${organization.name?.EN}`}
+                     title="View organization"
+                    >
+                     <span
+                        className="material-symbols-outlined"
+                       aria-hidden="true"
+                     >
+                       visibility
+                     </span>
+                   </button>
 
-                      <td className="table-actions">
-  <div className="table-action-buttons">
-    <button
-      className="table-icon-button"
-      type="button"
-      onClick={() =>
-        navigate(
-          `/organizations/${organization.id}`,
-        )
-      }
-      aria-label={`View ${organization.name?.EN}`}
-      title="View organization"
-    >
-      <span
-        className="material-symbols-outlined"
-        aria-hidden="true"
-      >
-        visibility
-      </span>
-    </button>
-
-    <button
-      className="table-icon-button"
-      type="button"
-      disabled
-      aria-label={`Edit ${organization.name?.EN}`}
-      title="Editing will be added later"
-    >
-      <span
-        className="material-symbols-outlined"
-        aria-hidden="true"
-      >
-        edit
-      </span>
-    </button>
-  </div>
-</td>
+                    <button
+                     className="table-icon-button"
+                     type="button"
+                     onClick={() =>navigate(`/organizations/${organization.id}/edit`,)}
+                     aria-label={`Edit ${organization.name?.EN}`}
+                      title="Edit organization"
+                   >
+                      <span className="material-symbols-outlined"aria-hidden="true">
+                       edit
+                      </span>
+                    </button>
+                 </div>
+                </td>
                     </tr>
                   ),
                 )}

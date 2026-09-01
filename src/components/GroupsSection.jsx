@@ -50,9 +50,7 @@ function GroupsSection({
       return;
     }
 
-    const updatedGroups = groups.filter(
-      (_, groupIndex) => groupIndex !== index,
-    );
+    const updatedGroups = groups.filter((_, groupIndex) => groupIndex !== index,);
 
     onGroupsChange(updatedGroups);
   };
@@ -73,9 +71,7 @@ function GroupsSection({
 
         <span className="groups-count">
           {groups.length}{' '}
-          {groups.length === 1
-            ? 'Group'
-            : 'Groups'}
+          {groups.length === 1? 'Group': 'Groups'}
         </span>
       </header>
 

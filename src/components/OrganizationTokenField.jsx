@@ -1,22 +1,15 @@
 import { useState } from 'react';
 import { generateOrganizationToken } from '../utils/tokenGenerator';
 
-function OrganizationTokenField({
-  schoolId,
-  value,
-  onValueChange,
-  readOnly = false,
-}) {
+function OrganizationTokenField({ schoolId, value, onValueChange, readOnly = false,}) 
+{
   const [isVisible, setIsVisible] = useState(false);
 
   const handleGenerate = () => {
     if (readOnly) {
       return;
     }
-
-    onValueChange(
-      generateOrganizationToken(schoolId),
-    );
+    onValueChange(generateOrganizationToken(schoolId),);
   };
 
   const toggleVisibility = () => {
@@ -65,24 +58,17 @@ function OrganizationTokenField({
           className="token-visibility-button"
           type="button"
           onClick={toggleVisibility}
-          aria-label={
-            isVisible
-              ? 'Hide organization token'
-              : 'Show organization token'
-          }
+          aria-label={isVisible? 'Hide organization token': 'Show organization token'}
         >
           <span
             className="material-symbols-outlined"
             aria-hidden="true"
           >
-            {isVisible
-              ? 'visibility_off'
-              : 'visibility'}
+            {isVisible? 'visibility_off': 'visibility'}
           </span>
         </button>
       </div>
     </div>
   );
 }
-
 export default OrganizationTokenField;

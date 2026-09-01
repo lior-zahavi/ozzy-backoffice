@@ -19,7 +19,6 @@ async function requestJson(
     signal,
     headers: {
       Accept: 'application/json',
-
       ...(body
         ? {
             'Content-Type': 'application/json',
@@ -42,12 +41,10 @@ async function requestJson(
 
   const contentType =response.headers.get('content-type');
 
-  const data = contentType?.includes('application/json',)
-    ? await response.json(): null;
+  const data = contentType?.includes('application/json',)? await response.json(): null;
 
   if (!response.ok) {
-    const error = new Error(
-      data?.message|| data?.error ||"Unable to complete the request.",);
+    const error = new Error(data?.message|| data?.error ||"Unable to complete the request.",);
 
     error.status = response.status;
     throw error;
