@@ -1,5 +1,13 @@
-function GroupCard({group,index,onChange,onDelete,readOnly = false,})
- {
+import { useTranslation } from 'react-i18next';
+
+function GroupCard({
+  group,
+  index,
+  onChange,
+  onDelete,
+  readOnly = false,
+}) {
+  const { t } = useTranslation();
   const updateField = (event) => {
     if (readOnly) {
       return;
@@ -14,7 +22,7 @@ function GroupCard({group,index,onChange,onDelete,readOnly = false,})
     <article className="group-card">
       <header className="group-card-header">
         <span className="group-id">
-          {group.id || 'New group'}
+          {group.id || t('backoffice.orgManagement.groups.newGroup')}
         </span>
 
         {!readOnly && (
@@ -37,7 +45,7 @@ function GroupCard({group,index,onChange,onDelete,readOnly = false,})
 
       <div className="form-field">
         <label htmlFor={`group-expiry-${index}`}>
-          Expiry
+          {t('backoffice.orgManagement.groups.expiryTimestampMobile')}
         </label>
 
         <input
@@ -52,7 +60,7 @@ function GroupCard({group,index,onChange,onDelete,readOnly = false,})
 
       <div className="form-field">
         <label htmlFor={`group-name-en-${index}`}>
-          Name (EN)
+          {t('backoffice.orgManagement.groups.nameEn')}
         </label>
 
         <input
@@ -68,7 +76,7 @@ function GroupCard({group,index,onChange,onDelete,readOnly = false,})
 
       <div className="form-field">
         <label htmlFor={`group-name-he-${index}`}>
-          Name (HE)
+          {t('backoffice.orgManagement.groups.nameHe')}
         </label>
 
         <input

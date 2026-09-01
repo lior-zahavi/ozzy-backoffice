@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import AuthField from '../auth/AuthField';
 import AuthLayout from '../auth/AuthLayout';
 import { useAuth } from '../auth/AuthContext';
@@ -16,6 +17,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
   const { signIn } = useAuth();
+  const { t } = useTranslation();
 
   const clearFeedback = () => {
     setError('');
@@ -112,12 +114,12 @@ function LoginPage() {
       >
         <AuthField
           id="email"
-          label="Email Address"
+          label={t('backoffice.login.email')}
           icon="mail"
           type="email"
           value={email}
           autoComplete="email"
-          placeholder="editor@ozzystory.com"
+          placeholder={t('backoffice.login.emailPlaceholder')}
           onChange={(event) => setEmail(event.target.value)}
           aria-invalid={Boolean(error)}
           aria-describedby={error ? 'auth-error' : undefined}
@@ -127,7 +129,7 @@ function LoginPage() {
         {!isResetMode && (
           <AuthField
             id="password"
-            label="Password"
+            label={t('backoffice.login.password')}
             icon="lock"
             type="password"
             value={password}
@@ -144,7 +146,7 @@ function LoginPage() {
                 onClick={showResetForm}
                 disabled={isSubmitting}
               >
-                Forgot Password?
+                {t('backoffice.login.forgotPassword')}
               </button>
             }
           />
@@ -186,7 +188,7 @@ function LoginPage() {
               ? 'Please wait...'
               : isResetMode
                 ? 'Send Reset Email'
-                : 'Sign In'}
+                : t('backoffice.login.submit')}
           </span>
 
           {!isResetMode && (

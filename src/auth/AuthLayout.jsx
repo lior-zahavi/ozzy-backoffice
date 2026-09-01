@@ -1,6 +1,8 @@
+import { useTranslation } from 'react-i18next';
 import "./auth.css";
 
 function AuthLayout({ children }) {
+  const { t } = useTranslation();
   return (
     <main className="auth-page">
       <div className="auth-environment-bar" aria-hidden="true" />
@@ -10,8 +12,8 @@ function AuthLayout({ children }) {
           <div className="auth-card-glow" aria-hidden="true" />
 
           <header className="auth-brand">
-            <h1>Ozzystory</h1>
-            <p>Editorial Backoffice</p>
+            <h1>{t('backoffice.sidebar.title')}</h1>
+            <p>{t('backoffice.sidebar.subtitle')}</p>
           </header>
             {children}
         </section>
@@ -24,7 +26,7 @@ function AuthLayout({ children }) {
           security
         </span>
 
-        <p>Protected system. Authorized personnel only.</p>
+        <p>{t('backoffice.login.footer')}</p>
       </footer>
     </main>
   )

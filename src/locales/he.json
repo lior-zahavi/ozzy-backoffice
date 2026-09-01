@@ -1,0 +1,103 @@
+{
+  "backoffice": {
+    "sidebar": {
+      "title": "Ozzystory",
+      "subtitle": "מערכת ניהול",
+      "dashboard": "לוח בקרה",
+      "organizations": "ארגונים",
+      "content": "תוכן",
+      "settings": "הגדרות",
+      "homeMobile": "בית",
+      "orgsMobile": "ארגונים",
+      "profileMobile": "פרופיל"
+    },
+    "login": {
+      "email": "כתובת אימייל",
+      "emailPlaceholder": "editor@ozzystory.com",
+      "emailPlaceholderMobile": "admin@ozzystory.com",
+      "password": "סיסמה",
+      "forgotPassword": "שכחת סיסמה?",
+      "submit": "היכנס",
+      "mobileSubtitle": "היכנס למערכת הניהול",
+      "footer": "מערכת מוגנת. למורשים בלבד."
+    },
+    "orgManagement": {
+      "pageTitle": "ניהול ארגונים",
+      "pageSubtitle": "נהל ארגונים והאינטגרציות שלהם.",
+      "createTitle": "צור ארגון",
+      "detailsTitle": "פרטי ארגון",
+      "editTitle": "עריכת ארגון",
+      "editSubtitle": "ניהול זהות, הגדרות אינטגרציה וקבוצות דינמיות.",
+      "editSubtitleMobile": "עדכון פרטי ארגון והגדרות.",
+      "discardChanges": "בטל שינויים",
+      "saveOrganization": "שמור ארגון",
+      "saveChanges": "שמור שינויים",
+      "saving": "שומר...",
+      "backToOrgs": "חזרה לארגונים",
+      "loadingTitle": "טוען ארגון...",
+      "loadingSubtitle": "אנא המתן בזמן שהארגון נטען.",
+      "loadingOrgsTitle": "טוען ארגונים...",
+      "errorLoadTitle": "לא ניתן לטעון ארגונים",
+      "emptyTitle": "אין ארגונים עדיין",
+      "emptySubtitle": "צור ארגון כדי להתחיל.",
+      "actions": "פעולות",
+      "editingLater": "אפשרות עריכה תתווסף בהמשך",
+      "viewOrg": "צפה בארגון",
+      "statusActive": "פעיל",
+      "statusInactive": "לא פעיל",
+      "statusUnknown": "לא ידוע",
+      "saveChangesMobile": "שמור שינויים",
+      "cancelMobile": "ביטול",
+      "coreIdentity": {
+        "title": "פרטים מזהים",
+        "orgId": "מזהה ארגון",
+        "orgIdMobile": "מזהה_ארגון",
+        "idMobile": "מזהה",
+        "orgIdHelpText": "נוצר אוטומטית, לא ניתן לשינוי.",
+        "studentQuota": "מכסת תלמידים",
+        "status": "סטטוס",
+        "displayNames": "שמות תצוגה",
+        "organizationNameMobile": "שם הארגון",
+        "nameEn": "שם (EN)",
+        "nameEnMobile": "אנגלית (EN)",
+        "nameHe": "שם (HE)",
+        "nameHeMobile": "עברית (HE)"
+      },
+      "integrationDetails": {
+        "title": "פרטי אינטגרציה",
+        "ilSchoolId": "מזהה משרד החינוך",
+        "ilSchoolIdMobile": "מזהה_משרד_החינוך (int64)",
+        "israeliSchoolRole": "תפקיד מוסד ישראלי",
+        "israeliSchoolRoleMobile": "תפקיד_מוסד_ישראלי (int64)",
+        "israeliSchoolRoleHelpText": "ערך ברירת המחדל הוא 1.",
+        "orgToken": "טוקן ארגון",
+        "orgTokenMobile": "טוקן_ארגון",
+        "generateNew": "צור חדש"
+      },
+      "mediaAssets": {
+        "title": "נכסי מדיה",
+        "orgLogo": "לוגו ארגון",
+        "orgLogoMobile": "כתובת URL ללוגו ארגון",
+        "fetchFromWebsite": "הבא מאתר אינטרנט",
+        "fetchHelpText": "ניסיון יצירה אוטומטי מהאתר של בית הספר",
+        "manualUrl": "כתובת URL ידנית",
+        "logoPlaceholder": "https://example.com/logo.png",
+        "logoError": "לא ניתן לטעון את הלוגו מכתובת זו.",
+        "testUrlMobile": "בדוק כתובת URL"
+      },
+      "groups": {
+        "title": "קבוצות",
+        "activeCount": "{{count}} פעילות",
+        "groupIdMobile": "מזהה קבוצה",
+        "expiryTimestampMobile": "חותמת זמן תפוגה",
+        "nameEn": "שם (EN)",
+        "nameHe": "שם (HE)",
+        "newGroup": "קבוצה חדשה",
+        "noGroups": "טרם נוספו קבוצות.",
+        "addNewGroup": "הוסף קבוצה חדשה",
+        "addGroupMobile": "הוסף קבוצה",
+        "removeMobile": "הסר"
+      }
+    }
+  }
+}

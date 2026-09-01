@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {useNavigate,} from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
+import { useTranslation } from 'react-i18next';
 import OrganizationForm from '../components/OrganizationForm';
 import { createOrganizationRequest } from '../services/organizationsApi';
 
@@ -20,6 +21,7 @@ const createEmptyOrganization = () => ({
 function OrganizationCreatePage() {
   const navigate = useNavigate();
   const { token } = useAuth();
+  const { t } = useTranslation();
 
   const [values, setValues] = useState(
     createEmptyOrganization,
@@ -54,7 +56,7 @@ function OrganizationCreatePage() {
   return (
     <OrganizationForm
       mode="create"
-      title="Create Organization"
+      title={t('backoffice.orgManagement.createTitle')}
       values={values}
       error={error}
       onChange={setValues}

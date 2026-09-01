@@ -1,8 +1,14 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { generateOrganizationToken } from '../utils/tokenGenerator';
 
-function OrganizationTokenField({ schoolId, value, onValueChange, readOnly = false,}) 
-{
+function OrganizationTokenField({
+  schoolId,
+  value,
+  onValueChange,
+  readOnly = false,
+}) {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   const handleGenerate = () => {
@@ -20,7 +26,7 @@ function OrganizationTokenField({ schoolId, value, onValueChange, readOnly = fal
     <div className="form-field form-field--full">
       <div className="field-label-row">
         <label htmlFor="organization-token">
-          Organization Token
+          {t('backoffice.orgManagement.integrationDetails.orgToken')}
         </label>
 
         {!readOnly && (
@@ -36,7 +42,7 @@ function OrganizationTokenField({ schoolId, value, onValueChange, readOnly = fal
               refresh
             </span>
 
-            Generate New
+            {t('backoffice.orgManagement.integrationDetails.generateNew')}
           </button>
         )}
       </div>
