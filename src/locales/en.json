@@ -1,0 +1,103 @@
+{
+  "backoffice": {
+    "sidebar": {
+      "title": "Ozzystory",
+      "subtitle": "Editorial Backoffice",
+      "dashboard": "Dashboard",
+      "organizations": "Organizations",
+      "content": "Content",
+      "settings": "Settings",
+      "homeMobile": "Home",
+      "orgsMobile": "Orgs",
+      "profileMobile": "Profile"
+    },
+    "login": {
+      "email": "Email Address",
+      "emailPlaceholder": "editor@ozzystory.com",
+      "emailPlaceholderMobile": "admin@ozzystory.com",
+      "password": "Password",
+      "forgotPassword": "Forgot Password?",
+      "submit": "Sign In",
+      "mobileSubtitle": "Sign in to the backoffice",
+      "footer": "Protected system. Authorized personnel only."
+    },
+    "orgManagement": {
+      "pageTitle": "Organization Management",
+      "pageSubtitle": "Manage organizations and their integrations.",
+      "createTitle": "Create Organization",
+      "detailsTitle": "Organization Details",
+      "editTitle": "Edit Organization",
+      "editSubtitle": "Manage identity, integration settings, and dynamic groups.",
+      "editSubtitleMobile": "Update organization details and configuration.",
+      "discardChanges": "Discard Changes",
+      "saveOrganization": "Save Organization",
+      "saveChanges": "Save Changes",
+      "saving": "Saving...",
+      "backToOrgs": "Back to Organizations",
+      "loadingTitle": "Loading organization...",
+      "loadingSubtitle": "Please wait while the organization is loaded.",
+      "loadingOrgsTitle": "Loading organizations...",
+      "errorLoadTitle": "Unable to load organizations",
+      "emptyTitle": "No organizations yet",
+      "emptySubtitle": "Create an organization to get started.",
+      "actions": "Actions",
+      "editingLater": "Editing will be added later",
+      "viewOrg": "View organization",
+      "statusActive": "Active",
+      "statusInactive": "Inactive",
+      "statusUnknown": "Unknown",
+      "saveChangesMobile": "Save Changes",
+      "cancelMobile": "Cancel",
+      "coreIdentity": {
+        "title": "Core Identity",
+        "orgId": "Organization ID",
+        "orgIdMobile": "organization_id",
+        "idMobile": "id",
+        "orgIdHelpText": "Auto-generated, immutable.",
+        "studentQuota": "Student Quota",
+        "status": "Status",
+        "displayNames": "DISPLAY NAMES",
+        "organizationNameMobile": "ORGANIZATION NAME",
+        "nameEn": "Name (EN)",
+        "nameEnMobile": "English (EN)",
+        "nameHe": "Name (HE)",
+        "nameHeMobile": "Hebrew (HE)"
+      },
+      "integrationDetails": {
+        "title": "Integration Details",
+        "ilSchoolId": "IL School ID",
+        "ilSchoolIdMobile": "il_school_id (int64)",
+        "israeliSchoolRole": "Israeli School Role",
+        "israeliSchoolRoleMobile": "israeli_school_role (int64)",
+        "israeliSchoolRoleHelpText": "Default value is 1.",
+        "orgToken": "Organization Token",
+        "orgTokenMobile": "org_token",
+        "generateNew": "Generate New"
+      },
+      "mediaAssets": {
+        "title": "Media Assets",
+        "orgLogo": "Organization Logo",
+        "orgLogoMobile": "Organization Logo URL",
+        "fetchFromWebsite": "Fetch from Website",
+        "fetchHelpText": "Attempts to auto-generate from school domain.",
+        "manualUrl": "Manual URL",
+        "logoPlaceholder": "https://example.com/logo.png",
+        "logoError": "The logo could not be loaded from this URL.",
+        "testUrlMobile": "Test URL"
+      },
+      "groups": {
+        "title": "Groups",
+        "activeCount": "{{count}} Active",
+        "groupIdMobile": "Group ID",
+        "expiryTimestampMobile": "Expiry Timestamp",
+        "nameEn": "Name (EN)",
+        "nameHe": "Name (HE)",
+        "newGroup": "New group",
+        "noGroups": "No groups have been added yet.",
+        "addNewGroup": "Add New Group",
+        "addGroupMobile": "Add Group",
+        "removeMobile": "Remove"
+      }
+    }
+  }
+}

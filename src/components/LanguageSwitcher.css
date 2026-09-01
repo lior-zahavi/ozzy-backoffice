@@ -1,0 +1,86 @@
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.language-switcher-button:hover {
+  background-color: var(--color-surface-high);
+}
+
+.lang-flag {
+  width: 20px;
+  height: 15px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.lang-code {
+  font-weight: 500;
+}
+
+.lang-caret {
+  font-size: 20px;
+  margin-left: -4px;
+}
+
+[dir="rtl"] .lang-caret {
+  margin-left: 0;
+  margin-right: -4px;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 0;
+  margin-top: 8px;
+  margin-bottom: 0;
+  padding: 8px 0;
+  list-style: none;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 140px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.language-option {
+  width: 100%;
+  text-align: start;
+  padding: 8px 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--color-text-primary);
+  font-family: inherit;
+}
+
+.language-option:hover {
+  background-color: var(--color-surface-high);
+}
+
+.language-option.active {
+  color: var(--color-text-secondary);
+  cursor: default;
+}
+
+.language-option.active:hover {
+  background-color: transparent;
+}

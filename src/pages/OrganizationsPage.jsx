@@ -1,5 +1,6 @@
 import {useEffect,useState,} from 'react';
 import {useLocation, useNavigate,} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../auth/AuthContext';
 import { listOrganizationsRequest } from '../services/organizationsApi';
 
@@ -7,6 +8,7 @@ function OrganizationsPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { token } = useAuth();
+  const { t } = useTranslation();
 
   const [organizations, setOrganizations] =useState([]);
   const [isLoading, setIsLoading] =useState(true);
@@ -64,10 +66,10 @@ function OrganizationsPage() {
     <section className="organizations-page">
       <header className="page-heading">
         <div>
-          <h1>Organizations</h1>
+          <h1>{t('backoffice.orgManagement.pageTitle')}</h1>
 
           <p>
-            Manage organizations and their integrations.
+            {t('backoffice.orgManagement.pageSubtitle')}
           </p>
         </div>
 
@@ -83,7 +85,7 @@ function OrganizationsPage() {
             add
           </span>
 
-          Create Organization
+          {t('backoffice.orgManagement.createTitle')}
         </button>
       </header>
 
@@ -96,7 +98,7 @@ function OrganizationsPage() {
             progress_activity
           </span>
 
-          <h2>Loading organizations...</h2>
+          <h2>{t('backoffice.orgManagement.loadingOrgsTitle')}</h2>
         </div>
       )}
 
@@ -112,7 +114,7 @@ function OrganizationsPage() {
             error
           </span>
 
-          <h2>Unable to load organizations</h2>
+          <h2>{t('backoffice.orgManagement.errorLoadTitle')}</h2>
           <p>{error}</p>
         </div>
       )}
@@ -128,10 +130,10 @@ function OrganizationsPage() {
               domain
             </span>
 
-            <h2>No organizations yet</h2>
+            <h2>{t('backoffice.orgManagement.emptyTitle')}</h2>
 
             <p>
-              Create an organization to get started.
+              {t('backoffice.orgManagement.emptySubtitle')}
             </p>
           </div>
         )}
@@ -143,14 +145,14 @@ function OrganizationsPage() {
             <table className="organizations-table">
               <thead>
                 <tr>
-                  <th scope="col">Name (EN)</th>
-                  <th scope="col">Name (HE)</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Groups</th>
+                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.nameEn')}</th>
+                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.nameHe')}</th>
+                  <th scope="col">{t('backoffice.orgManagement.coreIdentity.status')}</th>
+                  <th scope="col">{t('backoffice.sidebar.organizations')}</th>
 
                   <th scope="col">
                     <span className="visually-hidden">
-                      Actions
+                      {t('backoffice.orgManagement.actions')}
                     </span>
                   </th>
                 </tr>
@@ -168,7 +170,9 @@ function OrganizationsPage() {
                         {organization.name?.HE || '—'}
                       </td>
 
-                      <td>{organization.status}</td>
+                      <td>
+                        {organization.status === 'Active' ? t('backoffice.orgManagement.statusActive') : organization.status === 'Inactive' ? t('backoffice.orgManagement.statusInactive') : t('backoffice.orgManagement.statusUnknown')}
+                      </td>
 
                       <td>
                         {organization.group_count}
@@ -176,17 +180,17 @@ function OrganizationsPage() {
 
                       <td className="table-actions">
   <div className="table-action-buttons">
-    <button
-      className="table-icon-button"
-      type="button"
-      onClick={() =>
-        navigate(
-          `/organizations/${organization.id}`,
-        )
-      }
-      aria-label={`View ${organization.name?.EN}`}
-      title="View organization"
-    >
+      <button
+        className="table-icon-button"
+        type="button"
+        onClick={() =>
+          navigate(
+            `/organizations/${organization.id}`,
+          )
+        }
+        aria-label={`View ${organization.name?.EN}`}
+        title={t('backoffice.orgManagement.viewOrg')}
+      >
       <span
         className="material-symbols-outlined"
         aria-hidden="true"
@@ -195,13 +199,13 @@ function OrganizationsPage() {
       </span>
     </button>
 
-    <button
-      className="table-icon-button"
-      type="button"
-      disabled
-      aria-label={`Edit ${organization.name?.EN}`}
-      title="Editing will be added later"
-    >
+      <button
+        className="table-icon-button"
+        type="button"
+        disabled
+        aria-label={`Edit ${organization.name?.EN}`}
+        title={t('backoffice.orgManagement.editingLater')}
+      >
       <span
         className="material-symbols-outlined"
         aria-hidden="true"

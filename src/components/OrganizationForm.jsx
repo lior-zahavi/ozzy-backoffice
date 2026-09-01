@@ -1,6 +1,7 @@
 import GroupsSection from './GroupsSection';
 import MediaAssetsSection from './MediaAssetsSection';
 import OrganizationTokenField from './OrganizationTokenField';
+import { useTranslation } from 'react-i18next';
 
 function OrganizationForm({
   mode = 'create',
@@ -12,6 +13,7 @@ function OrganizationForm({
   onSubmit,
   isSaving = false,
 }) {
+  const { t } = useTranslation();
   const isViewMode = mode === 'view';
   const isEditMode = mode === 'edit';
 
@@ -48,8 +50,7 @@ function OrganizationForm({
           <h1>{title}</h1>
 
           <p>
-            Manage identity, integration settings, and dynamic
-            groups.
+            {t('backoffice.orgManagement.editSubtitle')}
           </p>
         </div>
 
@@ -61,8 +62,8 @@ function OrganizationForm({
             disabled={isSaving}
           >
             {isViewMode
-              ? 'Back to Organizations'
-              : 'Discard Changes'}
+              ? t('backoffice.orgManagement.backToOrgs')
+              : t('backoffice.orgManagement.discardChanges')}
           </button>
 
           {!isViewMode && (
@@ -73,10 +74,10 @@ function OrganizationForm({
               disabled={isSaving}
             >
               {isSaving
-                ? 'Saving...'
+                ? t('backoffice.orgManagement.saving')
                 : isEditMode
-                  ? 'Save Changes'
-                  : 'Save Organization'}
+                  ? t('backoffice.orgManagement.saveChanges')
+                  : t('backoffice.orgManagement.saveOrganization')}
             </button>
           )}
         </div>
@@ -104,13 +105,13 @@ function OrganizationForm({
                   badge
                 </span>
 
-                Core Identity
+                {t('backoffice.orgManagement.coreIdentity.title')}
               </h2>
 
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="organization-id">
-                    Organization ID
+                    {t('backoffice.orgManagement.coreIdentity.orgId')}
                   </label>
 
                   <input
@@ -123,13 +124,13 @@ function OrganizationForm({
                   />
 
                   <small>
-                    Generated automatically and cannot be changed.
+                    {t('backoffice.orgManagement.coreIdentity.orgIdHelpText')}
                   </small>
                 </div>
 
                 <div className="form-field">
                   <label htmlFor="status">
-                    Status
+                    {t('backoffice.orgManagement.coreIdentity.status')}
                   </label>
 
                   <select
@@ -140,22 +141,22 @@ function OrganizationForm({
                     disabled={isViewMode}
                   >
                     <option value="active">
-                      Active
+                      {t('backoffice.orgManagement.statusActive')}
                     </option>
 
                     <option value="inactive">
-                      Inactive
+                      {t('backoffice.orgManagement.statusInactive')}
                     </option>
                   </select>
                 </div>
 
                 <div className="form-divider form-field--full">
-                  <span>Display Names</span>
+                  <span>{t('backoffice.orgManagement.coreIdentity.displayNames')}</span>
                 </div>
 
                 <div className="form-field">
                   <label htmlFor="name-en">
-                    Name (EN)
+                    {t('backoffice.orgManagement.coreIdentity.nameEn')}
                   </label>
 
                   <input
@@ -171,7 +172,7 @@ function OrganizationForm({
 
                 <div className="form-field">
                   <label htmlFor="name-he">
-                    Name (HE)
+                    {t('backoffice.orgManagement.coreIdentity.nameHe')}
                   </label>
 
                   <input
@@ -189,7 +190,7 @@ function OrganizationForm({
 
                 <div className="form-field">
                   <label htmlFor="student-quota">
-                    Student Quota
+                    {t('backoffice.orgManagement.coreIdentity.studentQuota')}
                   </label>
 
                   <input
@@ -214,13 +215,13 @@ function OrganizationForm({
                   integration_instructions
                 </span>
 
-                Integration Details
+                {t('backoffice.orgManagement.integrationDetails.title')}
               </h2>
 
               <div className="form-grid">
                 <div className="form-field">
                   <label htmlFor="school-id">
-                    IL School ID
+                    {t('backoffice.orgManagement.integrationDetails.ilSchoolId')}
                   </label>
 
                   <input
@@ -235,7 +236,7 @@ function OrganizationForm({
 
                 <div className="form-field">
                   <label htmlFor="school-role">
-                    Israeli School Role
+                    {t('backoffice.orgManagement.integrationDetails.israeliSchoolRole')}
                   </label>
 
                   <input

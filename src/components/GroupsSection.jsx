@@ -1,4 +1,5 @@
 import GroupCard from './GroupCard';
+import { useTranslation } from 'react-i18next';
 
 const createEmptyGroup = () => ({
   id: `grp_${crypto.randomUUID()}`,
@@ -12,6 +13,7 @@ function GroupsSection({
   onGroupsChange,
   readOnly = false,
 }) {
+  const { t } = useTranslation();
   const addGroup = () => {
     if (readOnly) {
       return;
@@ -68,21 +70,18 @@ function GroupsSection({
             group
           </span>
 
-          Groups
+          {t('backoffice.orgManagement.groups.title')}
         </h2>
 
         <span className="groups-count">
-          {groups.length}{' '}
-          {groups.length === 1
-            ? 'Group'
-            : 'Groups'}
+          {t('backoffice.orgManagement.groups.activeCount', { count: groups.length })}
         </span>
       </header>
 
       <div className="groups-list">
         {groups.length === 0 ? (
           <p className="groups-empty">
-            No groups have been added yet.
+            {t('backoffice.orgManagement.groups.noGroups')}
           </p>
         ) : (
           groups.map((group, index) => (
@@ -111,7 +110,7 @@ function GroupsSection({
             add_circle
           </span>
 
-          Add New Group
+          {t('backoffice.orgManagement.groups.addNewGroup')}
         </button>
       )}
     </section>

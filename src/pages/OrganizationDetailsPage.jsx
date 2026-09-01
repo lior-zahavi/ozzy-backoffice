@@ -8,9 +8,11 @@ import {
   } from 'react-router-dom';
   import { useAuth } from '../auth/AuthContext';
   import OrganizationForm from '../components/OrganizationForm';
+  import { useTranslation } from 'react-i18next';
   import { getOrganizationRequest } from '../services/organizationsApi';
   
   function OrganizationDetailsPage() {
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { organizationId } = useParams();
     const { token } = useAuth();
@@ -77,10 +79,10 @@ import {
               progress_activity
             </span>
   
-            <h2>Loading organization...</h2>
+            <h2>{t('backoffice.orgManagement.loadingTitle')}</h2>
   
             <p>
-              Please wait while the organization is loaded.
+              {t('backoffice.orgManagement.loadingSubtitle')}
             </p>
           </div>
         </section>
@@ -110,7 +112,7 @@ import {
               type="button"
               onClick={goBack}
             >
-              Back to Organizations
+              {t('backoffice.orgManagement.backToOrgs')}
             </button>
           </div>
         </section>
@@ -135,7 +137,7 @@ import {
               type="button"
               onClick={goBack}
             >
-              Back to Organizations
+              {t('backoffice.orgManagement.backToOrgs')}
             </button>
           </div>
         </section>
@@ -145,7 +147,7 @@ import {
     return (
       <OrganizationForm
         mode="view"
-        title="Organization Details"
+        title={t('backoffice.orgManagement.detailsTitle')}
         values={organization}
         error=""
         onDiscard={goBack}

@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 import "./header.css";
 
 const headerActions = [
@@ -12,9 +14,10 @@ const headerActions = [
 ]
 
 function Header() {
+  const { t } = useTranslation();
   return (
     <header className="header">
-      <span className="header-title">Organization Management</span>
+      <span className="header-title">{t('backoffice.orgManagement.pageTitle')}</span>
 
       <div className="header-actions">
         <div className="environment-toggle" aria-label="Current environment">
@@ -24,6 +27,8 @@ function Header() {
             EDUIL
           </span>
         </div>
+
+        <LanguageSwitcher />
 
         {headerActions.map((action) => (
           <button

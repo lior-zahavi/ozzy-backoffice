@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 function MediaAssetsSection({
   logoUrl,
   onLogoUrlChange,
   readOnly = false,
 }) {
+  const { t } = useTranslation();
   const [failedLogoUrl, setFailedLogoUrl] =
     useState('');
 
@@ -29,7 +31,7 @@ function MediaAssetsSection({
           image
         </span>
 
-        Media Assets
+        {t('backoffice.orgManagement.mediaAssets.title')}
       </h2>
 
       <div className="logo-area">
@@ -66,19 +68,18 @@ function MediaAssetsSection({
               language
             </span>
 
-            Fetch from Website
+            {t('backoffice.orgManagement.mediaAssets.fetchFromWebsite')}
           </button>
 
           <small>
-            Attempts to generate the logo from the organization
-            website.
+            {t('backoffice.orgManagement.mediaAssets.fetchHelpText')}
           </small>
         </div>
       </div>
 
       <div className="form-field">
         <label htmlFor="logo-url">
-          Manual URL
+          {t('backoffice.orgManagement.mediaAssets.manualUrl')}
         </label>
 
         <input
@@ -86,7 +87,7 @@ function MediaAssetsSection({
           name="logoUrl"
           type="url"
           value={logoUrl}
-          placeholder="https://example.com/logo.png"
+          placeholder={t('backoffice.orgManagement.mediaAssets.logoPlaceholder')}
           onChange={handleLogoUrlChange}
           readOnly={readOnly}
         />
@@ -96,7 +97,7 @@ function MediaAssetsSection({
             className="field-error"
             role="alert"
           >
-            The logo could not be loaded from this URL.
+            {t('backoffice.orgManagement.mediaAssets.logoError')}
           </small>
         )}
       </div>
