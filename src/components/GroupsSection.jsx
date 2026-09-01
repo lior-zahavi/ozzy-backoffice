@@ -52,9 +52,7 @@ function GroupsSection({
       return;
     }
 
-    const updatedGroups = groups.filter(
-      (_, groupIndex) => groupIndex !== index,
-    );
+    const updatedGroups = groups.filter((_, groupIndex) => groupIndex !== index,);
 
     onGroupsChange(updatedGroups);
   };

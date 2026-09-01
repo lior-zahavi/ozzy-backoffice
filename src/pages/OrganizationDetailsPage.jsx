@@ -50,22 +50,27 @@ import {
             requestError.message ||
               'Unable to load the organization.',
           );
-        } finally {
-          if (!controller.signal.aborted) {
-            setIsLoading(false);
-          }
+
+        setOrganization(result);
+      } catch (requestError) {
+        if (
+          requestError.name === 'AbortError'
+        ) {
+          return;
         }
-      };
-  
-      loadOrganization();
-  
-      return () => {
-        controller.abort();
-      };
-    }, [organizationId, token]);
-  
-    const goBack = () => {
-      navigate('/organizations');
+
+        setError(requestError.message ||"Unable to load the organization.",);
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadOrganization();
+
+    return () => {
+      controller.abort();
     };
   
     if (isLoading) {
@@ -88,13 +93,15 @@ import {
         </section>
       );
     }
-  
-    if (error) {
-      return (
-        <section className="organization-form-page">
-          <div
-            className="organizations-empty"
-            role="alert"
+  };
+
+  if (isLoading) {
+    return (
+      <section className="organization-form-page">
+        <div className="organizations-empty">
+          <span
+            className="material-symbols-outlined"
+            aria-hidden="true"
           >
             <span
               className="material-symbols-outlined"
@@ -145,14 +152,41 @@ import {
     }
   
     return (
+      <section className="organization-form-page">
+        <div className="organizations-empty">
+          <span
+            className="material-symbols-outlined"
+            aria-hidden="true"
+          >
+            search_off
+          </span>
+
+          <h2>Organization not found</h2>
+
+          <button
+            className="secondary-button"
+            type="button"
+            onClick={goBack}
+          >
+            Back to Organizations
+          </button>
+        </div>
+      </section>
+    );
+  }
+
+  return (
       <OrganizationForm
         mode="view"
         title={t('backoffice.orgManagement.detailsTitle')}
         values={organization}
-        error=""
+        error={error}
+        onChange={isEditMode? setOrganization: undefined}
         onDiscard={goBack}
+        onSubmit={isEditMode? saveOrganization: undefined}
+        isSaving={isSaving}
       />
-    );
-  }
-  
-  export default OrganizationDetailsPage;
+  );
+}
+
+export default OrganizationDetailsPage;

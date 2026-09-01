@@ -47,7 +47,7 @@ function OrganizationForm({
     <section className="organization-form-page">
       <header className="page-heading">
         <div>
-          <h1>{title}</h1>
+          <h1 className="page-title">{title}</h1>
 
           <p>
             {t('backoffice.orgManagement.editSubtitle')}
@@ -100,8 +100,7 @@ function OrganizationForm({
               <h2>
                 <span
                   className="material-symbols-outlined"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   badge
                 </span>
 
@@ -117,11 +116,8 @@ function OrganizationForm({
                   <input
                     id="organization-id"
                     type="text"
-                    value={
-                      values.id || 'Auto-generated'
-                    }
-                    readOnly
-                  />
+                    value={values.id || 'Auto-generated'}
+                    readOnly/>
 
                   <small>
                     {t('backoffice.orgManagement.coreIdentity.orgIdHelpText')}
@@ -210,8 +206,7 @@ function OrganizationForm({
               <h2>
                 <span
                   className="material-symbols-outlined"
-                  aria-hidden="true"
-                >
+                  aria-hidden="true">
                   integration_instructions
                 </span>
 
@@ -252,9 +247,7 @@ function OrganizationForm({
                 <OrganizationTokenField
                   schoolId={values.schoolId}
                   value={values.token}
-                  onValueChange={(token) =>
-                    updateValue('token', token)
-                  }
+                  onValueChange={(token) =>updateValue('token', token)}
                   readOnly={isViewMode}
                 />
               </div>

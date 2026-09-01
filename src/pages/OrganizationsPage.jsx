@@ -6,7 +6,6 @@ import { listOrganizationsRequest } from '../services/organizationsApi';
 
 function OrganizationsPage() {
   const navigate = useNavigate();
-  const location = useLocation();
   const { token } = useAuth();
   const { t } = useTranslation();
 
@@ -14,14 +13,8 @@ function OrganizationsPage() {
   const [isLoading, setIsLoading] =useState(true);
   const [error, setError] = useState("");
 
-  const isPreview =location.pathname.startsWith('/preview/');
 
   useEffect(() => {
-    if (isPreview) {
-      setIsLoading(false);
-      return undefined;
-    }
-
     const controller = new AbortController();
 
     const loadOrganizations = async () => {
@@ -54,12 +47,10 @@ function OrganizationsPage() {
     return () => {
       controller.abort();
     };
-  }, [isPreview, token]);
+  }, [token]);
 
   const openCreatePage = () => {
-    const createPath = isPreview? '/preview/organizations/new': '/organizations/new';
-
-    navigate(createPath);
+    navigate('/organizations/new');
   };
 
   return (
@@ -119,9 +110,7 @@ function OrganizationsPage() {
         </div>
       )}
 
-      {!isLoading &&
-        !error &&
-        organizations.length === 0 && (
+      {!isLoading && !error && organizations.length === 0 && (
           <div className="organizations-empty">
             <span
               className="material-symbols-outlined"
@@ -150,7 +139,7 @@ function OrganizationsPage() {
                   <th scope="col">{t('backoffice.orgManagement.coreIdentity.status')}</th>
                   <th scope="col">{t('backoffice.sidebar.organizations')}</th>
 
-                  <th scope="col">
+                  <th className="column-actions" scope="col">
                     <span className="visually-hidden">
                       {t('backoffice.orgManagement.actions')}
                     </span>
@@ -162,11 +151,11 @@ function OrganizationsPage() {
                 {organizations.map(
                   (organization) => (
                     <tr key={organization.id}>
-                      <td>
+                      <td className="column-name-en">
                         {organization.name?.EN || '—'}
                       </td>
 
-                      <td dir="rtl" lang="he">
+                      <td className="column-name-he" dir="rtl" lang="he">
                         {organization.name?.HE || '—'}
                       </td>
 
@@ -174,7 +163,7 @@ function OrganizationsPage() {
                         {organization.status === 'Active' ? t('backoffice.orgManagement.statusActive') : organization.status === 'Inactive' ? t('backoffice.orgManagement.statusInactive') : t('backoffice.orgManagement.statusUnknown')}
                       </td>
 
-                      <td>
+                      <td className="column-groups">
                         {organization.group_count}
                       </td>
 

@@ -15,10 +15,7 @@ function OrganizationTokenField({
     if (readOnly) {
       return;
     }
-
-    onValueChange(
-      generateOrganizationToken(schoolId),
-    );
+    onValueChange(generateOrganizationToken(schoolId),);
   };
 
   const toggleVisibility = () => {
@@ -67,24 +64,17 @@ function OrganizationTokenField({
           className="token-visibility-button"
           type="button"
           onClick={toggleVisibility}
-          aria-label={
-            isVisible
-              ? 'Hide organization token'
-              : 'Show organization token'
-          }
+          aria-label={isVisible? 'Hide organization token': 'Show organization token'}
         >
           <span
             className="material-symbols-outlined"
             aria-hidden="true"
           >
-            {isVisible
-              ? 'visibility_off'
-              : 'visibility'}
+            {isVisible? 'visibility_off': 'visibility'}
           </span>
         </button>
       </div>
     </div>
   );
 }
-
 export default OrganizationTokenField;

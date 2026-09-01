@@ -5,6 +5,7 @@ const LIST_API_URL =import.meta.env.VITE_ORGANIZATIONS_LIST_API_URL;
 const GET_API_URL =import.meta.env.VITE_ORGANIZATION_GET_API_URL;
 
 const CREATE_API_URL =import.meta.env.VITE_CREATE_ORGANIZATION_API_URL;
+const UPDATE_API_URL =import.meta.env.VITE_UPDATE_ORGANIZATION_API_URL;
 
 function removeUndefinedValues(object) {
   return Object.fromEntries(
@@ -36,8 +37,9 @@ function createOrganizationPayload(organization,locale,)
     il_school_id:organization.schoolId || undefined,
     id: organization.id,
     school_role:organization.schoolRole || undefined,
-    status:organization.status === 'active'
-        ? 'Active': 'Inactive',
+    student_quota:organization.studentQuota === ''
+        ? undefined: Number(organization.studentQuota),
+    status:organization.status === 'active'? 'Active': 'Inactive',
     groups: organization.groups.map(createGroupPayload,),
   });
 }
@@ -131,6 +133,16 @@ export function createOrganizationRequest(organization,authToken,locale = 'en',)
 
   return postJson(
     CREATE_API_URL,
+    payload,
+    authToken,
+  );
+}
+export function updateOrganizationRequest(organization,authToken,locale = 'en',) 
+{
+  const payload = createOrganizationPayload(organization,locale,);
+
+  return postJson(
+    UPDATE_API_URL,
     payload,
     authToken,
   );
